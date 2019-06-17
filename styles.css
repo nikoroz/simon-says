@@ -1,0 +1,99 @@
+/*General ----------------------------------------------*/
+
+header {
+	text-align: center;
+}
+
+#pageContainer {
+ display: block;
+ position: relative;
+ text-align: center;
+ margin: auto;
+ height: 100%;
+ width: 100%;
+}
+
+/*Button Styles -----------------------------------------*/
+
+#buttons {
+ max-width: 720px;
+ width: 100%;
+ height: 100%;
+ margin: auto;
+ z-index: -1;
+ stroke: #000;
+ stroke-miterlimit: 10;
+ stroke-width: 3px;
+}
+
+#buttonYellow {
+ fill: #fcee21;
+}
+#buttonYellow:hover {
+ fill: #fcf14f;
+	stroke-width: 4px;
+}
+#buttonYellow:active {
+ fill: #c9bc03;
+	stroke-width: 3px;
+}
+
+#buttonGreen {
+ fill: #00dc00;
+}
+#buttonGreen:hover {
+ fill: #1aff1a;
+	stroke-width: 4px;
+}
+#buttonGreen:active {
+ fill: #008000;
+	stroke-width: 3px;
+}
+
+#buttonRed {
+ fill: red;
+}
+#buttonRed:hover {
+ fill: #ff4d4d;
+	stroke-width: 4px;
+}
+#buttonRed:active {
+ fill: #990000;
+	stroke-width: 3px;
+}
+
+#buttonBlue {
+ fill: blue;
+}
+#buttonBlue:hover {
+ fill: #3333ff;
+	stroke-width: 4px;
+}
+#buttonBlue:active {
+ fill: #000099;
+	stroke-width: 3px;
+}
+
+
+/*Center Control --------------------------*/
+
+#center {
+ position: relative;
+ top: -500px;
+ left: -35px;
+ margin: auto;
+ width: 100%;
+ text-align: center;
+ font-size: 35px;
+ max-width: 200px;
+}
+
+#sequenceCountDisplay {
+ margin: 20px;
+ font-size: 45px;
+}
+
+#startButton {
+ margin: 20px;
+ font-size: 20px;
+}
