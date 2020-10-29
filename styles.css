@@ -4,7 +4,7 @@ header {
 	text-align: center;
 }
 
-#pageContainer {
+#container {
  display: block;
  position: relative;
  text-align: center;
@@ -26,50 +26,50 @@ header {
  stroke-width: 3px;
 }
 
-#buttonYellow {
+#yellow {
  fill: #fcee21;
 }
-#buttonYellow:hover {
+#yellow:hover {
  fill: #fcf14f;
 	stroke-width: 4px;
 }
-#buttonYellow:active {
+#yellow:active {
  fill: #c9bc03;
 	stroke-width: 3px;
 }
 
-#buttonGreen {
+#green {
  fill: #00dc00;
 }
-#buttonGreen:hover {
+#green:hover {
  fill: #1aff1a;
 	stroke-width: 4px;
 }
-#buttonGreen:active {
+#green:active {
  fill: #008000;
 	stroke-width: 3px;
 }
 
-#buttonRed {
+#red {
  fill: red;
 }
-#buttonRed:hover {
+#red:hover {
  fill: #ff4d4d;
 	stroke-width: 4px;
 }
-#buttonRed:active {
+#red:active {
  fill: #990000;
 	stroke-width: 3px;
 }
 
-#buttonBlue {
+#blue {
  fill: blue;
 }
-#buttonBlue:hover {
+#blue:hover {
  fill: #3333ff;
 	stroke-width: 4px;
 }
-#buttonBlue:active {
+#blue:active {
  fill: #000099;
 	stroke-width: 3px;
 }
@@ -88,12 +88,12 @@ header {
  max-width: 200px;
 }
 
-#sequenceCountDisplay {
+#menu {
  margin: 20px;
  font-size: 45px;
 }
 
-#startButton {
+#start {
  margin: 20px;
  font-size: 20px;
 }
