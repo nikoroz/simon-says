@@ -1,0 +1,23 @@
+{
+  "name": "simon-says",
+  "version": "1.0.0",
+  "description": "A simple Simon Says game.",
+  "main": "game.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nikoroz/simon-says.git"
+  },
+  "author": "Nikola Oroz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nikoroz/simon-says/issues"
+  },
+  "homepage": "https://github.com/nikoroz/simon-says#readme",
+  "dependencies": {
+    "@babel/eslint-parser": "^7.21.3",
+    "eslint": "^8.36.0"
+  }
+}
