@@ -134,10 +134,10 @@ class SimonSays {
 window.simon = new SimonSays({
   startLevel: 0,
   sounds:     {
-    green:  '/sounds/green.mp3',
-    red:    '/sounds/red.mp3',
-    yellow: '/sounds/yellow.mp3',
-    blue:   '/sounds/blue.mp3',
+    green:  'https://github.com/nikoroz/simon-says/blob/master/sounds/green.mp3?raw=true',
+    red:    'https://github.com/nikoroz/simon-says/blob/master/sounds/red.mp3?raw=true',
+    yellow: 'https://github.com/nikoroz/simon-says/blob/master/sounds/yellow.mp3?raw=true',
+    blue:   'https://github.com/nikoroz/simon-says/blob/master/sounds/blue.mp3?raw=true',
   },
   buttons: {
     start:  '#startButton',
