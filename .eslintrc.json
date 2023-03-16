@@ -1,0 +1,30 @@
+{
+    "extends": [
+        "eslint:recommended"
+    ],
+    "parser": "",
+    "parserOptions": {
+        "ecmaVersion": "latest"
+    },
+    "env": {
+        "browser": true,
+        "node": true,
+        "es6": true
+    },
+    "rules": {
+        "key-spacing": ["warn", { "align": "value" }],
+        "indent": ["warn", 2, { "ObjectExpression": 1 }],
+        "no-unused-vars": "warn",
+        "no-empty": "warn",
+        "no-extra-boolean-cast": "warn",
+        "valid-typeof": "warn",
+        "no-dupe-keys": "warn",
+        "no-duplicate-case": "warn",
+        "no-extra-semi": "warn",
+        "no-invalid-regexp": "error",
+        "no-irregular-whitespace": "warn",
+        "no-unexpected-multiline": "warn",
+        "no-unreachable": "warn"
+    },
+    "settings": {}
+}
