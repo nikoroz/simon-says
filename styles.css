@@ -6,7 +6,8 @@
 	justify-content: center;
 	align-content: center;
 	text-align: center;
-
+	font-family: monospace;
+	max-height: 100vh;
 }
 
 /* COLOR BUTTONS */
@@ -16,12 +17,13 @@
 	display: contents;
 }
 .buttons {
-	max-height: 60vh;
+	max-height: 104vh;
 }
 .color {
 	stroke: black;
 	stroke-width: .25em;
 }
+
 #yellow {
 	fill: #fcee21;
 }
@@ -51,34 +53,37 @@
 }
 
 /* CENTER CONTROL */
-#control-area {
-	position: absolute;
-	
-	/*
-	position: relative;
-	top: -500px;
-	left: -35px;
-	margin: auto;
-	width: 100%;
-	text-align: center;
-	font-size: 35px;
-	max-width: 200px;
-	*/
+
+label {
+	font-size: 1em;
+	margin-bottom: .5em;
 }
 
+#control-area {
+	position: absolute;
+}
 #control > button {
-	max-width: 60%;
-	padding: 1em;
+	max-width: 100%;
+	padding: .5em;
 	margin-bottom: 1em;
 	font-size: 1em;
 	border: black solid 3px;
-	border-radius: 5%;
+	border-radius: 10%;
+}
+
+#settings {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+#settings-starting-level {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .scoreboard {
 	display: inline-flex;
-	margin: 1em;
-	font-family: monospace;
 	font-size: xx-large;
 }
 
@@ -91,3 +96,17 @@
 	user-select: none;
 }
 /*--------------------------------------------------------------------------------*/
+
+@media only screen and (max-width: 660px) {
+  #control-area {
+    position: relative;
+    margin-top: -2em;
+	}
+	#game {
+    flex-direction: column;
+	}
+	.buttons {
+		display: flex;
+		flex-direction: column;
+	}
+}

@@ -1,32 +1,47 @@
 class SimonSays {
-  constructor({ startLevel, sounds = {}, buttons = {}, display = {} } = {}) {
+  constructor({ sounds = {}, buttons = {}, settings = {}, display = {} } = {}) {
     this.gameRunning = false
-    this.startLevel = startLevel || 0
-    this.score = 0
     this.currentIndex = 0
+    this.score = 0
     this.sequence = []
     this.display = document.querySelector(display.score)
     this.colors = new Map([[0, 'green'], [1, 'red'], [2, 'yellow'], [3, 'blue']])
     this.buttons = {
-      start:  document.querySelector(buttons.start),
-      next:   document.querySelector(buttons.next),
-      green:  document.querySelector(buttons.green),
-      red:    document.querySelector(buttons.red),
-      yellow: document.querySelector(buttons.yellow),
-      blue:   document.querySelector(buttons.blue)
+      red:    this._getElement(buttons.red),
+      blue:   this._getElement(buttons.blue),
+      green:  this._getElement(buttons.green),
+      yellow: this._getElement(buttons.yellow),
+      start:  this._getElement(buttons.start),
+      reset:  this._getElement(buttons.reset),
+      next:   this._getElement(buttons.next),
     }
-    this.buttons.start.addEventListener('click', this.playRound.bind(this))
-    this.buttons.next.addEventListener('click', this.playRound.bind(this))
-    this.buttons.green.addEventListener('click', this.buttonPress.bind(this, 'green'))
-    this.buttons.red.addEventListener('click', this.buttonPress.bind(this, 'red'))
+    this.buttons.red.addEventListener   ('click', this.buttonPress.bind(this, 'red'))
+    this.buttons.blue.addEventListener  ('click', this.buttonPress.bind(this, 'blue'))
+    this.buttons.green.addEventListener ('click', this.buttonPress.bind(this, 'green'))
     this.buttons.yellow.addEventListener('click', this.buttonPress.bind(this, 'yellow'))
-    this.buttons.blue.addEventListener('click', this.buttonPress.bind(this, 'blue'))
+    this.buttons.start.addEventListener ('click', this.startGame.bind(this))
+    this.buttons.reset.addEventListener ('click', this.resetGame.bind(this))
+    this.buttons.next.addEventListener  ('click', this.playRound.bind(this))
     this.buttons.next.disabled = true
-    if (this.startLevel) {
-      for (let i = 0; i < startLevel + 1; i++)
-        this.addStep()
-    }
+    this.buttons.reset.disabled = true
+    this._gameSpeed =  this._getElement(settings.gameSpeed)
+    this._startIndex = this._getElement(settings.startingLevel)
     this.init(sounds)
+  }
+
+  get gameSpeed()  {
+    const gameSpeed = Number(this?._gameSpeed?.value)
+    if (isNaN(gameSpeed)) return 1000
+    if (gameSpeed === -2) return 1600
+    if (gameSpeed === -1) return 1300
+    if (gameSpeed ===  0) return 1000
+    if (gameSpeed ===  1) return 600
+    if (gameSpeed ===  2) return 300
+    return 1000
+  }
+
+  get startIndex() {
+    return Number(this._startIndex?.value || 0)
   }
 
   get currentSequenceColor() {
@@ -36,11 +51,17 @@ class SimonSays {
   async init(sounds) {
     await this.loadHowler()
     this.sounds = {
-      green:  new window.Howl({ src: [sounds.green] }) 	|| new Audio(sounds.green),
-      red:    new window.Howl({ src: [sounds.red] }) 		|| new Audio(sounds.red),
-      yellow: new window.Howl({ src: [sounds.yellow] }) || new Audio(sounds.yellow),
-      blue:   new window.Howl({ src: [sounds.blue] }) 	|| new Audio(sounds.blue)
+      green:  window?.Howl && new window.Howl({ src: [sounds.green] }) 	|| new Audio(sounds.green),
+      red:    window?.Howl && new window.Howl({ src: [sounds.red] }) 		|| new Audio(sounds.red),
+      yellow: window?.Howl && new window.Howl({ src: [sounds.yellow] }) || new Audio(sounds.yellow),
+      blue:   window?.Howl && new window.Howl({ src: [sounds.blue] }) 	|| new Audio(sounds.blue)
     }
+  }
+
+  _getElement(selector) {
+    if (typeof selector === 'string')
+      return document.querySelector(selector)
+    return selector
   }
 
   async loadHowler() {
@@ -53,8 +74,8 @@ class SimonSays {
     })
   }
 
-  enableColors(setting = true) {
-    const action = setting ? 'remove' : 'add'
+  enableColors(action = 'remove') {
+    if(action === false) action ='add'
     this.buttons.green.classList[action]('playing-sequence')
     this.buttons.red.classList[action]('playing-sequence')
     this.buttons.yellow.classList[action]('playing-sequence')
@@ -62,21 +83,21 @@ class SimonSays {
   }
 
   buttonPress(color) {
-    console.log('Button Pressed: ', color)
+    console.log(`%c ${color} `, `background-color: ${color}; color: black; font-size: 20px; font-weight: bold;`);
     //clearInterval(this.sequenceInterval)
     this.playStep(color)
-    if(!this.gameRunning) return
-    if (this.checkInput(color)){
-      if (this.currentIndex === this.score) {
-        this.gameRunning = false
-        this.currentIndex = 0
-        this.buttons.next.disabled = false
-        this.score++
-        this.updateScore(this.score)
-      }
-      else this.currentIndex++
+    if(!this.gameRunning)
+      return
+    if (!this.checkInput(color))
+      return this.gameOver()
+    if (this.currentIndex === this.score) {
+      this.gameRunning = false
+      this.currentIndex = 0
+      this.buttons.next.disabled = false
+      this.score++
+      this.updateScore(this.score)
     }
-    else this.gameOver()
+    else this.currentIndex++
   }
 
   addStep() {
@@ -89,8 +110,25 @@ class SimonSays {
     this.display.innerHTML = score
   }
 
-  playRound() {
+
+  startGame() {
+    this.buttons.reset.disabled = false
     this.buttons.start.disabled = true
+    this._gameSpeed.disabled = true
+    this._startIndex.disabled = true
+    this.score = this.startIndex
+    this.updateScore(this.score)
+    for (let i = 0; i < this.startIndex; i++)
+      this.addStep()
+    this.playRound()
+  }
+
+  resetGame() {
+    this.gameOver()
+    this.updateScore(0)
+  }
+
+  playRound() {
     this.buttons.next.disabled = true
     this.addStep()
     this.playSequence()
@@ -104,7 +142,11 @@ class SimonSays {
     clearInterval(this.sequenceInterval)
     this.gameRunning = false
     this.buttons.start.disabled = false
+    this.buttons.reset.disabled = true
+    this._gameSpeed.disabled = false
+    this._startIndex.disabled = false
     this.currentIndex = 0
+    this.score = 0
     this.sequence = []
   }
 
@@ -112,40 +154,44 @@ class SimonSays {
     let stepToPlay = 0
     this.enableColors(false)
     this.sequenceInterval = setInterval(() => {
-      this.playStep(this.sequence[stepToPlay])
-      if (stepToPlay === this.score){
+      if (stepToPlay === this.score + 1){
         clearInterval(this.sequenceInterval)
         this.gameRunning = true
-        this.enableColors(true)
+        this.enableColors()
       }
-      stepToPlay++
-    }, 1000)
+      else {
+        this.playStep(this.sequence[stepToPlay])
+        stepToPlay++
+      }
+    }, this.gameSpeed)
   }
 
   playStep(color) {
     this.sounds[color].play()
     this.buttons[color].classList.add('pressed')
-    setTimeout(() => {
-      this.buttons[color].classList.remove('pressed')
-    }, 500)
+    setTimeout(() => this.buttons[color].classList.remove('pressed'), this.gameSpeed / 3)
   }
 }
 
 window.simon = new SimonSays({
-  startLevel: 0,
-  sounds:     {
-    green:  'https://github.com/nikoroz/simon-says/blob/master/sounds/green.mp3?raw=true',
-    red:    'https://github.com/nikoroz/simon-says/blob/master/sounds/red.mp3?raw=true',
-    yellow: 'https://github.com/nikoroz/simon-says/blob/master/sounds/yellow.mp3?raw=true',
-    blue:   'https://github.com/nikoroz/simon-says/blob/master/sounds/blue.mp3?raw=true',
+  sounds: {
+    red:    '/sounds/red.mp3?raw=true',
+    blue:   '/sounds/blue.mp3?raw=true',
+    green:  '/sounds/green.mp3?raw=true',
+    yellow: '/sounds/yellow.mp3?raw=true',
   },
   buttons: {
-    start:  '#startButton',
-    next:   '#playNext',
-    green:  '#green',
     red:    '#red',
-    yellow: '#yellow',
     blue:   '#blue',
+    green:  '#green',
+    yellow: '#yellow',
+    next:   '#nextRound',
+    start:  '#startGame',
+    reset:  '#resetGame',
+  },
+  settings: {
+    startingLevel: '#settings-starting-level',
+    gameSpeed:     '#settings-speed',
   },
   display: {
     score: '#score'
