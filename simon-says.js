@@ -175,10 +175,10 @@ class SimonSays {
 
 window.simon = new SimonSays({
   sounds: {
-    red:    '/sounds/red.mp3?raw=true',
-    blue:   '/sounds/blue.mp3?raw=true',
-    green:  '/sounds/green.mp3?raw=true',
-    yellow: '/sounds/yellow.mp3?raw=true',
+    red:    'https://s3.amazonaws.com/freecodecamp/simonSound2.mp3',
+    blue:   'https://s3.amazonaws.com/freecodecamp/simonSound4.mp3',
+    green:  'https://s3.amazonaws.com/freecodecamp/simonSound1.mp3',
+    yellow: 'https://s3.amazonaws.com/freecodecamp/simonSound3.mp3',
   },
   buttons: {
     red:    '#red',
