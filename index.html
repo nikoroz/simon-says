@@ -39,8 +39,29 @@
           <p class="scoreboard">Score:</p>
           <p id="score" class="scoreboard">0</p>
           <br />
-          <button id="startButton" type="button">Start Game</button>
-          <button id="playNext" type="button">Play Next</button>
+          <button id="startGame" type="button">Start Game</button>
+          <button id="nextRound" type="submit">Play Next</button>
+          <button id="resetGame" type="button">Reset</button>
+          <div id="settings">
+            <label for="settings-starting-level">Starting Level:</label>
+            <input
+              type="number"
+              id="settings-starting-level"
+              name="settings-starting-level"
+              min="0"
+              max="100"
+              value="0"
+            />
+            <label for="settings-speed">Speed:</label>
+            <input
+              type="range"
+              id="settings-speed"
+              name="settings-speed"
+              min="-2"
+              max="2"
+              value="0"
+            />
+          </div>
         </div>
       </div>
     </div>
